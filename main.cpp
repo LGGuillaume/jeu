@@ -1,15 +1,12 @@
 #include <iostream>
-#include <iomanip>
 #include <cstdlib>
 #include <ctime>
 
-int main()
+void gameplay()
 {
-	int monsterHP = 100; int attackValue = 0;
-	int playerHP = 50; int blockValue = 0;
-	int attack = 0;
-	char action;
-	char option;
+	int monsterHP = 100; int attackValue = 0; int attack = 0; 
+	int playerHP = 50; int blockValue = 0; int monsterAttack = 0;
+	char action; char option;
 
 	std::cout << "------ READY TO FIGHT ? ------" << std::endl;
 	std::cout << "------ YES(Y) OR NO(N)  ------" << std::endl;
@@ -23,35 +20,52 @@ int main()
 
 	while (option == 'Y')
 	{
-		std::cout << "ATTACK ?" << " " << "BLOCK ?" << std::endl;
+		std::cout << "ATTACK ?" << " " << "BLOCK ? : ";
 		std::cin >> action;
 		action = toupper(action);
 		std::cout << std::endl;
 
 		if (action == 'A')
 		{
-			attackValue = rand() % 20;
+		attackValue = rand() % 10;
 
-			if (attackValue > 0)
+			if (monsterHP > 0)
 			{
-				int newMonsterHP;
-				std::cout << "SLASH !!" << std::endl;
-				newMonsterHP = monsterHP - attackValue;
-				int* tmpHP = new int[newMonsterHP];
-				std::cout << "Monster health : " << tmpHP << std::endl;
-				std::cout << std::endl;
-				continue;
+				if (attackValue > 0)
+				{
+					std::cout << "--- SLASH !! ---" << std::endl;
+					monsterHP -= attackValue;
+					if (monsterHP < 0)
+					{
+					monsterHP = 0;
+					}
+					std::cout << "Monster health : " << monsterHP << std::endl;
+					std::cout << std::endl;
+
+					if (monsterHP == 0)
+					{
+					std::cout << "Congrats ! You killed the monster" << std::endl;
+					break;
+					}
+				}
+				else
+				{
+						std::cout << "--- MISSED ! ---" << std::endl;
+				}
 			}
-			else
-				std::cout << "MISSED !";
-				std::cout << std::endl;
 		}
 		if (action == 'B')
 		{
 			std::cout << "BLOCKED !" << std::endl;
 		}
 	}
+}
 
-	
+int main()
+{
+	std::cout << "------ MONSTER SLASHER ------";
+	std::cout << std::endl;
+	std::cout << std::endl;
 
+	gameplay();
 }
